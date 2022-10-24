@@ -16,3 +16,6 @@ Feedbacks(specially bads ones) are appreciated :)
 - *extras* -> This folder contains variant of the original payload, i.e *spython_tcp.py*.E.g *spython_http.py* uses HTTP post request to send data back attacker's HTTP server
 
 ## How it works ##
+![image](https://user-images.githubusercontent.com/91953982/197538220-b6ac0122-2307-4c6b-9e8e-b16dcb240002.png)
+- Here we see the attacker listening on three different TCP ports, notice how are ports are increments of one. This is done so the user only needs to enter one port
+- When the payload runs the victim's machine two TCP connections are established to the attacker's machine
