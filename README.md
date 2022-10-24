@@ -3,4 +3,16 @@
 ![flc_design2022102376629](https://user-images.githubusercontent.com/91953982/197397830-3cdd5836-bb62-43c7-bfbf-74977a856a74.png)
 
 
-This simple python script is able to log keystrokes,take screenshots and send all of that through a POST request to a properly configured HTTP. Moreover, upon running this script, two tcp connections are initiated. One to the attacker's machine on a specififc port which he/she is listening on(e.g using netcat), and the second one to the HTTP server(I used NGINX). The keystrokes and screenshot images are saved to a file on the server. Furthermore these files can be served throught the web browser where the attacker can view them(Maybe serve it through localhost if HTTP server is on the same machine). The other connection is used by the attacker to send predefined command, see commands.txt or even better just look at the source code. Feel free to change the necessary variables such as PORT and HOST. You can compile the source code into exe file [here](https://pyinstaller.org/).
+## About ##
+This simple python script sends keystrokes and  screenshots of victim's machine back to the attacker.
+NOTE: This is one of my first actual  project, I've been coding in python for nearly a year so please don't judge the quality of the code :/
+Feedbacks(specially bads ones) are appreciated :)
+
+## File Structure ##
+- *commands.txt* -> Commands that an attacker can run once connection from victim has been established
+- *spython_tcp.py* -> The payload, note that variables such as HOST and MAIN_PORT may or may not be manually changed
+- *spython_cli.py* -> This file provides the attacker with a command line interface
+- *templates* -> This folder contains templates if user decides to automatically generate payload. No need to use *spython_tcp.py* if payload is automatically generate, a  new file called spython.py will be created in current directoty. You may wish to compile it to exe [here](https://pyinstaller.org/) 
+- *extras* -> This folder contains variant of the original payload, i.e *spython_tcp.py*.E.g *spython_http.py* uses HTTP post request to send data back attacker's HTTP server
+
+## How it works ##
