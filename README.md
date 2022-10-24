@@ -26,10 +26,17 @@ Feedbacks(specially bads ones) are appreciated :)
 - *"key connection"* ->  TCP connection that the attacker uses to receive victim keystrokes and store them in a file
 - *K_PORT or KPORT or KEY PORT* -> TCP port number used for *"key connection"*
 
-### Explantion ###
+### Explanation ###
 - Here we see the attacker listening on three different TCP ports, notice how are ports are increments of one. This is done so the user only needs to enter one port
-- When the payload runs the victim's machine two TCP connections are established to the attacker's machine
-- In this case, the first connection is on port 5000, which is called the "active/main connection". The attacker uses this connection to send commands or invoke a reverse shell
-- The second connection, to port 5001, is called the "key connection"(no pun intented). This connection is used to  send the victim's keystrokes back the attacker. The first increment from *MAIN PORT*, in this 5000, is used for the "key connection"
+- When the payload runs on the victim's machine, two TCP connections are established to the attacker's machine
+- In this case, the first connection is on port 5000, which is called the "active/main connection". The attacker uses this connection to send predefined commands(see *commands.txt*) or invoke a reverse shell
+- The second connection, to port 5001, is called the "key connection"(no pun intented). This connection is used to  send the victim's keystrokes back the attacker. The first increment from *MAIN PORT*, in this case 5000, is used for the "key connection"
 - The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the *screenshot* command, see *commands.txt*
-- Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from *MAIN PORT*
+- Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from *MAIN PORT*, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
+- - - -
+## Additional notes ##
+- The auto generated payload can be compiled using [pyinstaller](https://pyinstaller.org/)
+- This small project is proof of concept of a simple yet somewhat powerful spyware
+- You may enhance the capability of this project by adding support of SSL or even use some python magic to exfiltrate data throught a reverse SSH tunnel using the [paramiko](https://www.paramiko.org/) module
+- If user decides not to automatically generate payload, he/she will have to manually change some variables such as *HOST* and *PORT* in *spython_tcp.py*
+- Spython is currently in pre-alpha state, more features are coming soon!!
