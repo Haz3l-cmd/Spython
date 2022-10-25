@@ -17,7 +17,7 @@ Feedbacks(specially bads ones) are appreciated :)
 ## File Structure
 
 - _commands.txt_ -> Commands that an attacker can run once connection from victim has been established
-- _spython_tcp.py_ -> The payload, note that variables such as HOST and MAIN_PORT may or may not be manually changed
+- _spython_tcp.py_ -> Source code of payload. Feel free to change it if you wish :)
 - _spython_cli.py_ -> This file provides the attacker with a command line interface
 - _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called spython.py will be created in current directoty. You may wish to compile it to exe [here](https://pyinstaller.org/)
 - _extras_ -> This folder contains variant of the original payload, i.e _spython_tcp.py_.E.g _spython_http.py_ uses HTTP post request to send data back attacker's HTTP server
@@ -39,7 +39,7 @@ Feedbacks(specially bads ones) are appreciated :)
 - When the payload runs on the victim's machine, two TCP connections are established to the attacker's machine
 - In this case, the first connection is on port 5000, which is called the "active/main connection". The attacker uses this connection to send predefined commands([see _commands.md_](https://github.com/Theguydev/Spython/blob/main/commands.md)) or invoke a reverse shell
 - The second connection, to port 5001, is called the "key connection"(no pun intented). This connection is used to send the victim's keystrokes back the attacker. The first increment from _MAIN PORT_, in this case 5000, is used for the "key connection"
-- The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the _screenshot_ command, see _commands.txt_
+- The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the _screenshot_ command, see [_commands.md_](https://github.com/Theguydev/Spython/blob/main/commands.md)
 - Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from _MAIN PORT_, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
 
 ---
