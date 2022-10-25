@@ -37,7 +37,7 @@ Feedbacks(specially bads ones) are appreciated :)
 
 - Here we see the attacker listening on three different TCP ports, notice how are ports are increments of one. This is done so the user only needs to enter one port
 - When the payload runs on the victim's machine, two TCP connections are established to the attacker's machine
-- In this case, the first connection is on port 5000, which is called the "active/main connection". The attacker uses this connection to send predefined commands(see _commands.txt_) or invoke a reverse shell
+- In this case, the first connection is on port 5000, which is called the "active/main connection". The attacker uses this connection to send predefined commands([see _commands.md_](https://github.com/Theguydev/Spython/blob/main/commands.md)) or invoke a reverse shell
 - The second connection, to port 5001, is called the "key connection"(no pun intented). This connection is used to send the victim's keystrokes back the attacker. The first increment from _MAIN PORT_, in this case 5000, is used for the "key connection"
 - The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the _screenshot_ command, see _commands.txt_
 - Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from _MAIN PORT_, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
