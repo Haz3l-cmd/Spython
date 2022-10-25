@@ -4,6 +4,7 @@ import sys
 import threading
 
 from time import sleep
+from termcolor import colored
 
 
 class Server:
@@ -129,4 +130,15 @@ def main()->None:
     print("[-]Program ended")
 
 if __name__ == "__main__":
+   spy = r"""
+   _____  _____ __     __  _______  _    _   ____   _   _ 
+  / ____||  __ \\ \   / / |__   __|| |  | | / __ \ | \ | |
+ | (___  | |__) |\ \_//     | |   | |__| || |  | ||  \| |
+  \___ \ |  ___/  \   /      | |   |  __  || |  | || . ` |
+  ____) || |       | |       | |   | |  | || |__| || |\  |
+ |_____/ |_|       |_|       |_|   |_|  |_| \____/ |_| \_|
+                                                          
+                                                          
+"""
+   print(spy[:141],colored(spy[141:],"red"))
    main()
