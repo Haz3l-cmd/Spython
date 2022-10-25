@@ -10,7 +10,9 @@ Feedbacks(specially bads ones) are appreciated :)
 
 ## Installation guide
 
-***Note that after running the *requirements.txt*, it should out of the box. However if you decide to use another variant, e.g spython_http.py, you will have to configure a server and process the incoming requests(from the victim)***
+***Note that after running the *requirements.txt*, it should run out of the box. However if you decide to use another variant, e.g spython_http.py, you will have to configure a server and process the incoming requests(from the victim), , manually modify the payload as needed and change necessary parameters. Nevertheless, the installing is pretty simple, just copy and paste the command/s below, you may wish to run it in a virtual envinronment, see [here](https://docs.python.org/3/library/venv.html)***
+    
+-    `pip3 install -r requirements.txt`
 
 ## File Structure
 
