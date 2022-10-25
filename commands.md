@@ -1,7 +1,17 @@
-*NOTE that case sensitivity is important
+#Commands
+These commands are predefined commands, see _spython_tcp.py_(The payload) for more details.
 
-cmd-> opens cmd
-open [app] -> opens [app], e.g open calc
+---
+
+### cmd
+
+     opens cmd
+
+---
+
+### open [app]
+
+opens [app], e.g open calc
 fullscreen -> Puts active window in full screen
 exit_prog -> Closes active window
 minise -> minimises active window
