@@ -19,7 +19,7 @@ Feedbacks(specially bads ones) are appreciated :)
 - _commands.txt_ -> Commands that an attacker can run once connection from victim has been established
 - _spython_tcp.py_ -> Source code of payload. Feel free to change it if you wish :)
 - _spython_cli.py_ -> This file provides the attacker with a command line interface
-- _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called spython.py will be created in current directoty. You may wish to compile it to exe [here](https://pyinstaller.org/)
+- _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called _payload.py_ will be created in current directory. Furthermore, a compiled exe file of the _payload.py_ is also generated
 - _extras_ -> This folder contains variant of the original payload, i.e _spython_tcp.py_.E.g _spython_http.py_ uses HTTP post request to send data back attacker's HTTP server
 
 ## How it works
@@ -46,7 +46,7 @@ Feedbacks(specially bads ones) are appreciated :)
 
 ## Additional notes
 
-- The auto generated payload can be compiled using [pyinstaller](https://pyinstaller.org/)
+- If user decides to not auto generate the payload, he/she may wish to compile the file to exe [here](https://pyinstaller.org/)
 - This small project is proof of concept of a simple yet somewhat powerful spyware
 - You may enhance the capability of this project by adding support of SSL or even use some python magic to exfiltrate data throught a reverse SSH tunnel using the [paramiko](https://www.paramiko.org/) module
 - If user decides not to automatically generate payload, he/she will have to manually change some variables such as _HOST_ and _PORT_ in _spython_tcp.py_
