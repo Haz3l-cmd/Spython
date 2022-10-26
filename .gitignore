@@ -8,3 +8,4 @@ __pycache__
 *.exe
 spython.py
 _build
+payload.py
