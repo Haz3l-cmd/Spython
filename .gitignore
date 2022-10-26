@@ -9,3 +9,4 @@ __pycache__
 spython.py
 _build
 payload.py
+*.spec
