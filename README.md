@@ -42,8 +42,12 @@ Feedbacks(specially bads ones) are appreciated :)
 - The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the _screenshot_ command, see [_commands.md_](https://github.com/Theguydev/Spython/blob/main/commands.md)
 - Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from _MAIN PORT_, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
 
----
+## Drawback ##
+- To obtain an exe executable, you will have to be in a windows machine(VM works fine). This applies to Linux and Mac
 
+## Important note
+- *spython_cli.py*, the cli has been tested on both windows and linux. However, the program works better on linux and you will have a much better there, so choose wisely
+---
 ## Additional notes
 
 - If user decides to not auto generate the payload, he/she may wish to compile the file to exe [here](https://pyinstaller.org/)
