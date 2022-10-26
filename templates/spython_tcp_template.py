@@ -166,8 +166,14 @@ def tcp_connection():
                else:
                    s.send("Invalid command !".encode())
             except IndexError:
-                s.send("Invalid arguement format, see documentation.".encode())         
-                pass
+                try:
+                   s.send("Invalid arguement format, see documentation.".encode())         
+                except ConnectionAbortedError:
+                     break
+
+            except ConnectionAbortedError:
+                   break
+
 if __name__ == "__main__":
     tcp_thread = Thread(target=tcp_connection,daemon=True)
     listener_thread = Thread(target=listen,args=(PORT,))
@@ -175,4 +181,5 @@ if __name__ == "__main__":
     listener_thread.start()
     tcp_thread.join()
     listener_thread.join()
+    print("exit")
     exit()
