@@ -19,7 +19,7 @@ Feedbacks(specially bads ones) are appreciated :)
 - _commands.txt_ -> Commands that an attacker can run once connection from victim has been established
 - _spython_tcp.py_ -> Source code of payload. Feel free to change it if you wish :)
 - _spython_cli.py_ -> This file provides the attacker with a command line interface
-- _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called _payload.py_ will be created in current directory. Furthermore, a compiled exe file of the _payload.py_ is also generated
+- _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called _payload.py_ will be created in current directory. Furthermore, a compiled  version of the _payload.py_ is also generated with respect to the user's operating system(e.g exe for windows)
 - _extras_ -> This folder contains variant of the original payload, i.e _spython_tcp.py_.E.g _spython_http.py_ uses HTTP post request to send data back attacker's HTTP server
 
 ## How it works
