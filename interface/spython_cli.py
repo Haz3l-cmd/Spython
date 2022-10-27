@@ -133,7 +133,7 @@ class Server:
 
 def main()->None:
    #Private variables that shoud not be changed
-    __TEMPLATE_PATH = "../templates/spython_tcp_template.py"
+    __TEMPLATE_PATH = "templates/spython_tcp_template.py"
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
     __SIG_PORT = "SPYTHON_PORT"
