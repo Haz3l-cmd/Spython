@@ -49,6 +49,8 @@ Feedbacks(specially bads ones) are appreciated :)
 
 ## Important note
 - *interfaces/spython_cli.py*, the cli has been tested on both windows and linux. However, the program works better on linux and you will have a much better there, so choose wisely
+- Currently, the payload only works on windows
+- **ALWAYS** run the program in its directory, i.e `python spython_cli.py`, and not `python templates/spython_cli.py`
 ---
 ## Additional notes
 
