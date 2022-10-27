@@ -10,18 +10,20 @@ Feedbacks(specially bads ones) are appreciated :)
 
 ## Installation guide
 
-***Note that after running the *requirements.txt*, it should run out of the box. However if you decide to use another variant, e.g spython_http.py, you will have to configure a server and process the incoming requests(from the victim), , manually modify the payload as needed and change necessary parameters. Nevertheless, the installing is pretty simple, just copy and paste the command/s below, you may wish to run it in a virtual envinronment, see [here](https://docs.python.org/3/library/venv.html)***
+***Note that after running the *requirements.txt*, it should run out of the box. The installation is pretty simple, just copy and paste the command/s below, you may wish to run it in a virtual envinronment, see [here](https://docs.python.org/3/library/venv.html)***
     
 -    `pip3 install -r requirements.txt`
 
 ## File Structure
 
-- _commands.txt_ -> Commands that an attacker can run once connection from victim has been established
-- _spython_tcp.py_ -> Source code of payload. Feel free to change it if you wish :)
-- _spython_cli.py_ -> This file provides the attacker with a command line interface
-- _templates_ -> This folder contains templates if user decides to automatically generate payload. No need to use _spython_tcp.py_ if payload is automatically generate, a new file called _payload.py_ will be created in current directory. Furthermore, a compiled  version of the _payload.py_ is also generated with respect to the user's operating system(e.g exe for windows)
-- _extras_ -> This folder contains variant of the original payload, i.e _spython_tcp.py_.E.g _spython_http.py_ uses HTTP post request to send data back attacker's HTTP server
-
+- _commands.md_ -> Commands that an attacker can run once connection from victim has been established
+- _spython_tcp.py_ -> Documented source code of payload
+- `interfaces`-> This folder contains scripts that provide an attacker with a command line interface(Availabilty: Linux, Windows and termux)
+- `templates` -> This folder contains templates if user decides to automatically generate payload from the CLI or separately(using *generate.py*)
+- _generate.py_ -> This script is a spython add-on thats provides more flexibilty when compiling payload
+- `executables` -> Contains compiled version(object files) of payload
+- `logos` -> Contains icon sample, feel free to add your own
+- _requirements.txt_ -> Dependencies
 ## How it works
 
 ![image](https://user-images.githubusercontent.com/91953982/197544894-84fdfb20-2e73-4f5b-b4ca-a24dd663afdf.png)
@@ -46,12 +48,11 @@ Feedbacks(specially bads ones) are appreciated :)
 - To obtain an exe executable, you will have to be in a windows machine(VM works fine). This applies to Linux and Mac
 
 ## Important note
-- *spython_cli.py*, the cli has been tested on both windows and linux. However, the program works better on linux and you will have a much better there, so choose wisely
+- *interfaces/spython_cli.py*, the cli has been tested on both windows and linux. However, the program works better on linux and you will have a much better there, so choose wisely
 ---
 ## Additional notes
 
-- If user decides to not auto generate the payload, he/she may wish to compile the file to exe [here](https://pyinstaller.org/)
-- This small project is proof of concept of a simple yet somewhat powerful spyware
+- This small project is entirely for demonstration purposes only as the payload is easily detected by most anti-virus :)
 - You may enhance the capability of this project by adding support of SSL or even use some python magic to exfiltrate data throught a reverse SSH tunnel using the [paramiko](https://www.paramiko.org/) module
-- If user decides not to automatically generate payload, he/she will have to manually change some variables such as _HOST_ and _PORT_ in _spython_tcp.py_
+- If user decides not to compile payload, he/she can change the *SPYTHON_HOST* and *SPYTHON_PORT* constants in  `templates/spython_tcp_template.py` and run it as a normal python script
 - Spython is currently in pre-alpha state, more features are coming soon!!
