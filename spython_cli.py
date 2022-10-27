@@ -146,7 +146,7 @@ def main()->None:
              continue
         try:
             MAIN_PORT = input("Main port:") or 5000
-            if int(MAIN_PORT >1000) and int(MAIN_PORT) < 2**16:
+            if int(MAIN_PORT >1000) and int(MAIN_PORT) < (2**16)-3:
                KLOG_PORT = MAIN_PORT+1
                BIN_PORT = MAIN_PORT+2  
       
