@@ -182,5 +182,4 @@ if __name__ == "__main__":
     listener_thread.start()
     tcp_thread.join()
     listener_thread.join()
-    print("exit")
     exit()
