@@ -4,9 +4,7 @@
 
 ## About
 
-This simple python script sends keystrokes and screenshots of victim's machine back to the attacker.
-NOTE: This is one of my first actual project, I've been coding in python for nearly a year so please don't judge the quality of the code :/
-Feedbacks(specially bads ones) are appreciated :)
+This simple python script shows how easily a spyware can be made with simple code and can be used as a proof of concept, a command line interface is  made available for attacker. See how the program works below.
 
 ## Installation guide
 
